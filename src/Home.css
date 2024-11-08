@@ -1,0 +1,87 @@
+#root {
+    background: #F7F4F2;
+}
+
+dates-view {
+    margin: 1vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+date {
+    color: #4F3422;
+    font: 'Urbanist', sans-serif;
+    font-size: 8vh;
+}
+
+button {
+    height: 8vh;
+    background: none;
+    border: none;
+}
+
+.change-date img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+task-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+task-body-done {
+    width: 80%;
+    display: flex;
+    margin: auto;
+    padding: 2vh;
+    align-items: center;
+    background: #E0E3CF;
+    justify-content: space-between;
+    border-radius: 10vh;
+    border: 2px solid #E0E3CF
+}
+
+.edit img {
+    height: 3.5vh;
+    width: 3.5vh;
+}
+
+.delete img {
+    height: 3.5vh;
+    width: 3.5vh;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    width: 25px;
+    height: 25px;
+}
+
+/* Hide the default checkbox */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a square box for the checkbox */
+.custom-checkbox .checkmark {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 4px; /* Optional: for rounded corners */
+}
+
+/* When the checkbox is checked, apply the custom PNG as the tick */
+.custom-checkbox input:checked + .checkmark {
+    background-image: url('/Tick'); /* Replace with your image path */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
