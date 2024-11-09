@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { StrictMode } from 'react';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
 
-import Home from './Home.tsx';
+import App from './App.tsx';
 import { EnvUnsupported } from './components/EnvUnsupported.tsx';
 import { init } from './init.ts';
 
@@ -23,7 +23,7 @@ try {
 
   root.render(
     <StrictMode>
-      <Home/>
+      <App/>
     </StrictMode>,
   );
 } catch (e) {

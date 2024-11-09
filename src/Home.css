@@ -1,9 +1,15 @@
 #root {
     background: #F7F4F2;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .dates-view {
-    margin: 1vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
