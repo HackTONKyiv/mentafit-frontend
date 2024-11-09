@@ -2,6 +2,7 @@
     background: #F7F4F2;
     margin: 0;
     padding: 0;
+    height: 100vh;
 }
 
 body {
@@ -9,20 +10,86 @@ body {
     padding: 0;
 }
 
+.profile {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profile-icon img {
+    height: 5vh;
+    border: 0.5px solid #E0E3CF;
+    padding: 1vh;
+    border-radius: 200px;
+}
+
 .dates-view {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 0;
+    font-weight: bold;
+    margin-top: -5vh;
 }
 
 .date {
     color: #4F3422;
     font-family: 'Urbanist', sans-serif;
-    font-size: 8vh;
+    font-size: 8.5vh;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    justify-content: space-between;
+}
+
+
+.habits-list {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 500;
+}
+
+.habit-body {
+    width: 75%;
+    display: flex;
+    margin: 1vh auto;
+    padding: 2vh;
+    align-items: center;
+    background: #7D944D;
+    justify-content: space-between;
+    border-radius: 10vh;
+    border: 2px solid #E0E3CF;
+    color: #ffffff;
+}
+
+.habit-body-done {
+    width: 75%;
+    display: flex;
+    margin: 1vh auto;
+    padding: 2vh;
+    align-items: center;
+    background: #E0E3CF;
+    justify-content: space-between;
+    border-radius: 10vh;
+    border: 2px solid #E0E3CF;
+    color: #7D944D;
+}
+
+button {
+    border-width: 0;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:active {
+
 }
 
 .change-date-button {
-    height: 8vh;
+    height: 7vh;
     background: none;
     border: none;
 }
@@ -32,22 +99,11 @@ body {
     max-width: 100%;
 }
 
-.task-buttons {
+.habit-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
-
-.task-body-done {
-    width: 80%;
-    display: flex;
-    margin: auto;
-    padding: 2vh;
     align-items: center;
-    background: #E0E3CF;
-    justify-content: space-between;
-    border-radius: 10vh;
-    border: 2px solid #E0E3CF
 }
 
 .edit img {
@@ -67,6 +123,8 @@ body {
     user-select: none;
     width: 25px;
     height: 25px;
+    background-color: #fff;
+    border-radius: 4px; /* Optional: for rounded corners */
 }
 
 /* Hide the default checkbox */
@@ -81,13 +139,29 @@ body {
     width: 100%;
     height: 100%;
     background-color: #fff;
-    border-radius: 4px; /* Optional: for rounded corners */
 }
 
 /* When the checkbox is checked, apply the custom PNG as the tick */
 .custom-checkbox input:checked + .checkmark {
-    background-image: url('/Tick'); /* Replace with your image path */
+    background-image: url('./Tick.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.add-habit {
+    color: #ffffff;
+    background: #7D944D;
+    border: 5px solid #E0E3CF;
+    font-size: 10vh;
+    font-weight: 600;
+    border-radius: 500px;
+    height: 14vh;
+    width: 14vh;
+    margin: 0 auto;
+}
+
+/* AddHabit styles, except button */
+.add-habit-popup {
+    background: #E0E3CF;
 }

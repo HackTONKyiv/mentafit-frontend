@@ -1,6 +1,9 @@
 import Arrow from './assets/Arrow.png';
 import Edit from './assets/Edit.png';
 import Delete from './assets/Delete.png';
+import EditDone from './assets/EditDone.png';
+import DeleteDone from './assets/DeleteDone.png';
+import Profile from './assets/Profile.png';
 import './Home.css';
 import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
 import {useEffect, useMemo, useState} from "react";
@@ -56,34 +59,79 @@ function Home() {
 
   return (
     <>
-      <div className={"dates-view"}>
+        <div className={"profile"}>
+            <div className={"profile-icon"}>
+                <img src={Profile} alt="User profile button and counter"/>
+            </div>
+        </div>
+        <div className={"dates-view"}>
         <button className={"change-date-button"}>
           <img src={Arrow} alt="Change date after"/>
         </button>
-        <div className={"date"}>19</div>
+        <div className={"date"}>19.10</div>
         <button className={"change-date-button"}><img src={Arrow} alt="Change date after"
                                                       style={{transform: 'rotate(180deg)'}}/>
         </button>
       </div>
-      <div className={"tasks-list"}>
-        <div className={"task-body-done"}>
-          <div className={"task-name"}>
-            Wake up at 5:00
-          </div>
-          <div className={"task-buttons"}>
-            <button className={"edit"}>
-              <img src={Edit} alt="edit-button"/>
-            </button>
-            <button className={"delete"}>
-              <img src={Delete} alt="delete-button"/>
-            </button>
-            <label className="custom-checkbox">
-              <input type="checkbox"/>
-              <span className="checkmark"></span>
-            </label>
-          </div>
+      <div className={"main-container"}>
+        <div className={"habits-list"}>
+            <div className={"habit-body-done"}>
+                <div className={"habit-name"}>
+                    Wake up at 5:00
+                </div>
+                <div className={"habit-buttons"}>
+                    <button className={"delete"}>
+                        <img src={DeleteDone} alt="delete-button-done"/>
+                    </button>
+                    <button className={"edit"}>
+                        <img src={EditDone} alt="edit-button-done"/>
+                    </button>
+                    <label className="custom-checkbox">
+                        <input type="checkbox"/>
+                        <span className="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            <div className={"habit-body"}>
+                <div className={"habit-name"}>
+                Wake up at 5:00
+                </div>
+                <div className={"habit-buttons"}>
+                    <button className={"delete"}>
+                        <img src={Delete} alt="delete-button"/>
+                    </button>
+                    <button className={"edit"}>
+                        <img src={Edit} alt="edit-button"/>
+                    </button>
+                    <label className="custom-checkbox">
+                        <input type="checkbox"/>
+                        <span className="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            <div className={"habit-body"}>
+                <div className={"habit-name"}>
+                Wake up at 5:00
+                </div>
+                <div className={"habit-buttons"}>
+                    <button className={"delete"}>
+                        <img src={Delete} alt="delete-button"/>
+                    </button>
+                    <button className={"edit"}>
+                        <img src={Edit} alt="edit-button"/>
+                    </button>
+                    <label className="custom-checkbox">
+                        <input type="checkbox"/>
+                        <span className="checkmark"></span>
+                    </label>
+                </div>
+            </div>
         </div>
-      </div>
+          
+        <button className={"add-habit"}>
+            +
+        </button>
+        </div>
     </>
 
   )
