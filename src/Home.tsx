@@ -127,23 +127,23 @@ function Home() {
         <div className={"habits-list"}>
           {getDateHabits(calendarStore.currentDate, calendarStore.habits).map((habit) => {
             return (
-              <div className={"habit-body"} key={habit.id}>
-                <div className={"habit-name"}>
-                  {habit.name}
+                <div className={"habit-body"} key={habit.id}>
+                  <div className={"habit-name"}>
+                    {habit.name}
+                  </div>
+                  <div className={"habit-buttons"}>
+                    <button className={"delete"}>
+                      <img src={Delete} alt="delete-button-done"/>
+                    </button>
+                    <button className={"edit"}>
+                      <img src={Edit} alt="edit-button-done"/>
+                    </button>
+                    <label className="custom-checkbox">
+                      <input type="checkbox"/>
+                      <span className="checkmark"></span>
+                    </label>
+                  </div>
                 </div>
-                <div className={"habit-buttons"}>
-                  <button className={"delete"}>
-                    <img src={Delete} alt="delete-button-done"/>
-                  </button>
-                  <button className={"edit"}>
-                    <img src={Edit} alt="edit-button-done"/>
-                  </button>
-                  <label className="custom-checkbox">
-                    <input type="checkbox"/>
-                    <span className="checkmark"></span>
-                  </label>
-                </div>
-              </div>
             )
           })}
 
@@ -164,9 +164,46 @@ function Home() {
           {/*    </label>*/}
           {/*  </div>*/}
           {/*</div>*/}
+
+          {/*<div className={"habit-body"}>*/}
+          {/*  <div className={"habit-name"}>*/}
+          {/*    Wake up at 5:05*/}
+          {/*  </div>*/}
+          {/*  <div className={"habit-buttons"}>*/}
+          {/*    <button className={"delete"}>*/}
+          {/*      <img src={Delete} alt="delete-button-done"/>*/}
+          {/*    </button>*/}
+          {/*    <button className={"edit"}>*/}
+          {/*      <img src={Edit} alt="edit-button-done"/>*/}
+          {/*    </button>*/}
+          {/*    <label className="custom-checkbox">*/}
+          {/*      <input type="checkbox"/>*/}
+          {/*      <span className="checkmark"></span>*/}
+          {/*    </label>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+          {/*<div className={"habit-body"}>*/}
+          {/*  <div className={"habit-name"}>*/}
+          {/*    Wake up at 5:05*/}
+          {/*  </div>*/}
+          {/*  <div className={"habit-buttons"}>*/}
+          {/*    <button className={"delete"}>*/}
+          {/*      <img src={Delete} alt="delete-button-done"/>*/}
+          {/*    </button>*/}
+          {/*    <button className={"edit"}>*/}
+          {/*      <img src={Edit} alt="edit-button-done"/>*/}
+          {/*    </button>*/}
+          {/*    <label className="custom-checkbox">*/}
+          {/*      <input type="checkbox"/>*/}
+          {/*      <span className="checkmark"></span>*/}
+          {/*    </label>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
 
-        <button className={"add-habit"}>
+
+        <button className={"create-habit-button"}>
           +
         </button>
       </div>

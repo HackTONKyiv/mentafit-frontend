@@ -149,7 +149,7 @@ button:active {
     background-position: center;
 }
 
-.add-habit {
+.create-habit-button {
     color: #ffffff;
     background: #7D944D;
     border: 5px solid #E0E3CF;
@@ -161,7 +161,3 @@ button:active {
     margin: 0 auto;
 }
 
-/* AddHabit styles, except button */
-.add-habit-popup {
-    background: #E0E3CF;
-}
