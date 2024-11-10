@@ -8,7 +8,7 @@ export const getDateString = (date: Date) => {
 
 export const getDateHabits = (date: Date, habits: Habit[]): Habit[] => {
   return habits.filter((habit) => {
-    if (habit.notificationsStartFrom.getTime() <= date.getTime()) {
+    // if (habit.notificationsStartFrom.getTime() <= date.getTime()) {
       if (habit.repeatEveryType === 'hour') {
         return true;
       } else if (habit.repeatEveryType === 'day') {
@@ -18,7 +18,7 @@ export const getDateHabits = (date: Date, habits: Habit[]): Habit[] => {
       } else if (habit.repeatEveryType === 'month') {
         return date.getDate() === habit.notificationsStartFrom.getDate();
       }
-    }
+    // }
     return false;
 
   });

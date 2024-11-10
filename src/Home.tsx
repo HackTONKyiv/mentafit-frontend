@@ -37,7 +37,7 @@ function Home() {
       }
     }
     if (!habitsFetched) {
-      getHabits(user).then((habits) => {
+      getHabits().then((habits) => {
         calendarStore.setHabits(habits);
         setHabitsFetched(true);
       });
@@ -97,6 +97,20 @@ function Home() {
         notificationsStartFrom: new Date(Date.parse(habbitData.notifications_start)),
       }
     }) || [];
+  }
+
+  async function addHabit(habitName: string, repeatInterval: number, intervalType: string) {
+    const {data} = await supabase.from("habbits").insert(
+      {
+        author: user?.id,
+        name: habitName,
+        repeat_every_count: repeatInterval,
+        repeat_every_type: intervalType,
+        notifications_start: new Date(),
+      });
+    console.log(data);
+    const newHabits = await getHabits();
+    calendarStore.setHabits(newHabits);
   }
 
   if (!dbUser) {
@@ -173,7 +187,10 @@ function Home() {
           +
         </button>
         {showAddPopup &&
-          <AddHabit onClose={() => setShowAddPopup(false)} />
+          <AddHabit onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
+            setShowAddPopup(false);
+            addHabit(...args);
+          }} />
         }
       </div>
     </>

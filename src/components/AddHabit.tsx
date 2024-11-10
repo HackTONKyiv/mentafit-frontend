@@ -10,11 +10,11 @@ interface AddHabitProps {
 export function AddHabit({ onClose = () => {}, onSubmit = () => {} } : AddHabitProps) {
     const [habitName, setHabitName] = useState("")
     const [habitInterval, setHabitInterval] = useState(1)
-    const [habitIntervalType, setHabitIntervalType] = useState("day")
+    const [habitIntervalType, setHabitIntervalType] = useState("hour")
     return (
         <>
             <div className={"create-habit-popup"}>
-                <button className={"create-habit-button"} onClick={onClose}>+</button>
+                <button className={"create-habit-button"} onClick={onClose}>&times;</button>
                 <input type="text" className={"habit-input"} placeholder={"Your new habit name"} value={habitName} onChange={(e) => setHabitName(e.target.value)}/>
                 <p>repeat every</p>
                 <div className={"repeat-row"}>
