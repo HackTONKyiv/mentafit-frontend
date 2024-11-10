@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hot-wallet/sdk": "^0.6.4",
     "@redux-devtools/extension": "^3.3.0",
     "@supabase/supabase-js": "^2.45.6",
     "@telegram-apps/sdk-react": "^2.0.8",
     "@telegram-apps/telegram-ui": "^2.1.8",
+    "@tonconnect/ui-react": "^2.0.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zustand": "^5.0.1"

@@ -13,6 +13,7 @@ import {getDateHabits, getDateString} from "./utils/utils.ts";
 import {User, Habit} from "./types/types.ts";
 import {AddHabit} from "./components/AddHabit.tsx";
 import {ModalPopup} from "./components/ModalPopup.tsx";
+import {WalletConnector} from "./components/WalletConnector.tsx";
 
 function Home() {
   const [dbUser, setDbUser] = useState<User | null>(null);
@@ -150,6 +151,7 @@ function Home() {
   return (
     <>
       <div className={"profile"}>
+        <WalletConnector/>
         <div className={"profile-icon"}>
           <img src={Profile} alt="User profile button and counter"/>
         </div>
