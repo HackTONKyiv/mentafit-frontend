@@ -23,6 +23,8 @@ function Home() {
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [habitsFetched, setHabitsFetched] = useState(false);
+  const [deletePopupMessage, setDeletePopupMessage] = useState("Are you sure you want to delete this habit?");
+  const [currentHabitToDelete, setCurrentHabitToDelete] = useState<number | null>(null)
 
   const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw),
     [launchParams.initDataRaw])
@@ -116,6 +118,13 @@ function Home() {
     calendarStore.setHabits(newHabits);
   }
 
+  async function deleteHabit(habitId: number) {
+    const {data} = await supabase.from("habbits").delete().eq("id", habitId);
+    console.log(data);
+    const newHabits = await getHabits();
+    calendarStore.setHabits(newHabits);
+  }
+
   if (!dbUser) {
     // TODO: Add a loading page
     return <div>Loading...</div>
@@ -151,7 +160,11 @@ function Home() {
                   {habit.name}
                 </div>
                 <div className={"habit-buttons"}>
-                  <button className={"delete"} onClick={() => setShowDeletePopup(true)}>
+                  <button className={"delete"} onClick={() => {
+                    setShowDeletePopup(true);
+                    setDeletePopupMessage(`Are you sure you want to delete the habit "${habit.name}"?`);
+                    setCurrentHabitToDelete(habit.id);
+                  }}>
                     <img src={habit.done ? DeleteDone : Delete} alt="delete-button-done"/>
                   </button>
                   <button className={"edit"}>
@@ -198,12 +211,17 @@ function Home() {
             }}/>
         }
         {showDeletePopup &&
-          <ModalPopup onClose={() => setShowDeletePopup(false)} text={"Are you sure you want to delete this habit?"}
+          <ModalPopup onClose={() => setShowDeletePopup(false)} text={deletePopupMessage}
                       onOk={() => {
                         setShowDeletePopup(false);
+                        if (currentHabitToDelete) {
+                          deleteHabit(currentHabitToDelete);
+                        }
+                        setCurrentHabitToDelete(null);
                       }}
                       onCancel={() => {
                         setShowDeletePopup(false);
+                        setCurrentHabitToDelete(null);
                       }}/>
         }
       </div>
