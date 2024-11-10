@@ -4,7 +4,6 @@ import CrossGreen from '../assets/CrossGreen.png';
 
 
 interface ModalPopupProps {
-  onClose: () => void
   text: string
   onOk: () => void
   onCancel: () => void
@@ -12,8 +11,7 @@ interface ModalPopupProps {
 
 
 export function ModalPopup({
-                             onClose = () => {
-                             }, text = "Some text", onOk = () => {
+                              text = "Some text", onOk = () => {
   }, onCancel = () => {
   }
                            }: ModalPopupProps) {

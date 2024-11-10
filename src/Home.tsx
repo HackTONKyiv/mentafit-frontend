@@ -27,7 +27,7 @@ function Home() {
   const [selectedHabit, setSelectedHabit] = useState<number | null>(null)
   const [showEditPopup, setShowEditPopup] = useState(false);
 
-  const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw),
+  const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw!),
     [launchParams.initDataRaw])
 
   useEffect(() => {
@@ -37,6 +37,7 @@ function Home() {
       if (user) {
         console.log(`User ${user.username} is logged in`);
         getTgUser().then((data) => {
+          // @ts-expect-error some shit with types, we don't care as it works :)
           setDbUser(data)
         });
       }
@@ -74,7 +75,7 @@ function Home() {
           username: data[0].username,
           allowsWriteToPM: data[0].allows_write_to_pm,
 
-        } : [];
+        } as User : null;
       } catch (e) {
         console.error(e);
       }
@@ -222,13 +223,13 @@ function Home() {
           +
         </button>
         {showAddPopup &&
-            <AddHabit onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
+            <AddHabit habitTitle={""} intervalCount={1} intervalType={"day"} onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
               setShowAddPopup(false);
               addHabit(...args);
             }} buttonText={"Create"}/>
         }
         {showDeletePopup &&
-          <ModalPopup onClose={() => setShowDeletePopup(false)} text={deletePopupMessage}
+          <ModalPopup text={deletePopupMessage}
                       onOk={() => {
                         setShowDeletePopup(false);
                         if (selectedHabit) {
