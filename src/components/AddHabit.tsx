@@ -5,12 +5,16 @@ import {useState} from "react";
 interface AddHabitProps {
     onClose: () => void
     onSubmit: (habitName: string, repeatInterval: number, intevalType: string) => void
+    buttonText: string
+    habitTitle: string
+    intervalCount: number
+    intervalType: string
 }
 
-export function AddHabit({ onClose = () => {}, onSubmit = () => {} } : AddHabitProps) {
-    const [habitName, setHabitName] = useState("")
-    const [habitInterval, setHabitInterval] = useState(1)
-    const [habitIntervalType, setHabitIntervalType] = useState("hour")
+export function AddHabit({ habitTitle = "", intervalCount = 1, intervalType = "hour", onClose = () => {}, onSubmit = () => {}, buttonText = "Create" } : AddHabitProps) {
+    const [habitName, setHabitName] = useState(habitTitle)
+    const [habitInterval, setHabitInterval] = useState(intervalCount)
+    const [habitIntervalType, setHabitIntervalType] = useState(intervalType)
     return (
         <>
             <div className={"create-habit-popup"}>
@@ -30,7 +34,7 @@ export function AddHabit({ onClose = () => {}, onSubmit = () => {} } : AddHabitP
                     if (habitName.length > 0 && habitInterval > 0) {
                         onSubmit(habitName, habitInterval, habitIntervalType)
                     }
-                }}>Create</button>
+                }}>{buttonText}</button>
             </div>
         </>
 

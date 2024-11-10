@@ -24,7 +24,8 @@ function Home() {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [habitsFetched, setHabitsFetched] = useState(false);
   const [deletePopupMessage, setDeletePopupMessage] = useState("Are you sure you want to delete this habit?");
-  const [currentHabitToDelete, setCurrentHabitToDelete] = useState<number | null>(null)
+  const [selectedHabit, setSelectedHabit] = useState<number | null>(null)
+  const [showEditPopup, setShowEditPopup] = useState(false);
 
   const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw),
     [launchParams.initDataRaw])
@@ -125,6 +126,18 @@ function Home() {
     calendarStore.setHabits(newHabits);
   }
 
+  async function editHabit(habitId: number, habitName: string, repeatInterval: number, intervalType: string) {
+    const {data} = await supabase.from("habbits").update(
+      {
+        name: habitName,
+        repeat_every_count: repeatInterval,
+        repeat_every_type: intervalType,
+      }).eq("id", habitId);
+    console.log(data);
+    const newHabits = await getHabits();
+    calendarStore.setHabits(newHabits);
+  }
+
   if (!dbUser) {
     // TODO: Add a loading page
     return <div>Loading...</div>
@@ -163,11 +176,14 @@ function Home() {
                   <button className={"delete"} onClick={() => {
                     setShowDeletePopup(true);
                     setDeletePopupMessage(`Are you sure you want to delete the habit "${habit.name}"?`);
-                    setCurrentHabitToDelete(habit.id);
+                    setSelectedHabit(habit.id);
                   }}>
                     <img src={habit.done ? DeleteDone : Delete} alt="delete-button-done"/>
                   </button>
-                  <button className={"edit"}>
+                  <button className={"edit"} onClick={() => {
+                    setShowEditPopup(true);
+                    setSelectedHabit(habit.id);
+                  }}>
                     <img src={habit.done ? EditDone : Edit} alt="edit-button-done"/>
                   </button>
                   <label className="custom-checkbox">
@@ -208,21 +224,34 @@ function Home() {
             <AddHabit onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
               setShowAddPopup(false);
               addHabit(...args);
-            }}/>
+            }} buttonText={"Create"}/>
         }
         {showDeletePopup &&
           <ModalPopup onClose={() => setShowDeletePopup(false)} text={deletePopupMessage}
                       onOk={() => {
                         setShowDeletePopup(false);
-                        if (currentHabitToDelete) {
-                          deleteHabit(currentHabitToDelete);
+                        if (selectedHabit) {
+                          deleteHabit(selectedHabit);
                         }
-                        setCurrentHabitToDelete(null);
+                        setSelectedHabit(null);
                       }}
                       onCancel={() => {
                         setShowDeletePopup(false);
-                        setCurrentHabitToDelete(null);
+                        setSelectedHabit(null);
                       }}/>
+        }
+        {showEditPopup &&
+          <AddHabit onClose={() => setShowEditPopup(false)} buttonText={"Edit habit"}
+                    habitTitle={calendarStore.habits.find((habit) => habit.id === selectedHabit)?.name || ""}
+                    intervalCount={calendarStore.habits.find((habit) => habit.id === selectedHabit)?.repeatEveryCount || 1}
+                    intervalType={calendarStore.habits.find((habit) => habit.id === selectedHabit)?.repeatEveryType || "hour"}
+                    onSubmit={(habitName, repeatInterval, intervalType) => {
+                      setShowEditPopup(false);
+                      if (selectedHabit) {
+                        editHabit(selectedHabit, habitName, repeatInterval, intervalType);
+                      }
+                      setSelectedHabit(null);
+                    }}/>
         }
       </div>
     </>
