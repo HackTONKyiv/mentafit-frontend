@@ -47,7 +47,7 @@ function Home() {
         setHabitsFetched(true);
       });
     }
-  }, [dbUser, calendarStore.habits]);
+  }, [dbUser, calendarStore.habits, calendarStore.setCurrentDate]);
 
   async function getTgUser() {
     if (!user) {
@@ -143,7 +143,8 @@ function Home() {
     return <div>Loading...</div>
   }
 
-  const isDateLessThanToday = calendarStore.currentDate.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
+  const currentDate = new Date(calendarStore.currentDate.getTime());
+  const isDateLessThanToday = currentDate.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
 
   return (
     <>
@@ -187,10 +188,10 @@ function Home() {
                     <img src={habit.done ? EditDone : Edit} alt="edit-button-done"/>
                   </button>
                   <label className="custom-checkbox">
-                    <input type="checkbox" checked={habit.done} onClick={() => {
-                      habit.done = !habit.done;
+                    <input type="checkbox" defaultChecked={habit.done} onClick={() => {
+                      calendarStore.setHabitDone(habit.id, !habit.done);
                     }}/>
-                    <span className="checkmark"></span>
+                    <span className="checkmark">&times;</span>
                   </label>
                 </div>
               </div>

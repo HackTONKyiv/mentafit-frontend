@@ -11,10 +11,15 @@ interface ModalPopupProps {
 }
 
 
-export function ModalPopup({ onClose = () => {}, text = "Some text", onOk = () => {}, onCancel = () => {} } : ModalPopupProps) {
+export function ModalPopup({
+                             onClose = () => {
+                             }, text = "Some text", onOk = () => {
+  }, onCancel = () => {
+  }
+                           }: ModalPopupProps) {
   return (
+    <div id="overlay" className="overlay">
       <div className="modal">
-        <div id="overlay" className="overlay"></div>
         <div className="modal-content">
           {/*<span className="close" onClick={onClose}>&times;</span>*/}
           <p>{text}</p>
@@ -24,5 +29,6 @@ export function ModalPopup({ onClose = () => {}, text = "Some text", onOk = () =
           </div>
         </div>
       </div>
+    </div>
   )
 }
