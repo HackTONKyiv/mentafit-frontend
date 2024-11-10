@@ -6,11 +6,12 @@ import DeleteDone from './assets/DeleteDone.png';
 import Profile from './assets/Profile.png';
 import './Home.css';
 import {retrieveLaunchParams} from "@telegram-apps/sdk-react";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {createSupabaseClient} from "./supabase/supabase.ts";
 import {useCalendarStore} from "./stores/calendarStore.ts";
 import {getDateHabits, getDateString} from "./utils/utils.ts";
 import {User, Habit} from "./types/types.ts";
+import {AddHabit} from "./components/AddHabit.tsx";
 
 function Home() {
   const [dbUser, setDbUser] = useState<User | null>(null);
@@ -18,6 +19,7 @@ function Home() {
   const launchParams = retrieveLaunchParams();
   const calendarStore = useCalendarStore();
   const user = launchParams.initData?.user;
+  const [showAddPopup, setShowAddPopup] = useState(false);
   const [habitsFetched, setHabitsFetched] = useState(false);
 
   const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw),
@@ -82,7 +84,7 @@ function Home() {
     } : [];
   }
 
-  async function getHabits(user) {
+  async function getHabits() {
     const {data} = await supabase.from("habbits").select();
     console.log(data);
     return data?.map<Habit>((habbitData: any) => {
@@ -164,48 +166,15 @@ function Home() {
           {/*    </label>*/}
           {/*  </div>*/}
           {/*</div>*/}
-
-          {/*<div className={"habit-body"}>*/}
-          {/*  <div className={"habit-name"}>*/}
-          {/*    Wake up at 5:05*/}
-          {/*  </div>*/}
-          {/*  <div className={"habit-buttons"}>*/}
-          {/*    <button className={"delete"}>*/}
-          {/*      <img src={Delete} alt="delete-button-done"/>*/}
-          {/*    </button>*/}
-          {/*    <button className={"edit"}>*/}
-          {/*      <img src={Edit} alt="edit-button-done"/>*/}
-          {/*    </button>*/}
-          {/*    <label className="custom-checkbox">*/}
-          {/*      <input type="checkbox"/>*/}
-          {/*      <span className="checkmark"></span>*/}
-          {/*    </label>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
-          {/*<div className={"habit-body"}>*/}
-          {/*  <div className={"habit-name"}>*/}
-          {/*    Wake up at 5:05*/}
-          {/*  </div>*/}
-          {/*  <div className={"habit-buttons"}>*/}
-          {/*    <button className={"delete"}>*/}
-          {/*      <img src={Delete} alt="delete-button-done"/>*/}
-          {/*    </button>*/}
-          {/*    <button className={"edit"}>*/}
-          {/*      <img src={Edit} alt="edit-button-done"/>*/}
-          {/*    </button>*/}
-          {/*    <label className="custom-checkbox">*/}
-          {/*      <input type="checkbox"/>*/}
-          {/*      <span className="checkmark"></span>*/}
-          {/*    </label>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
         </div>
 
 
-        <button className={"create-habit-button"}>
+        <button className={"create-habit-button"} onClick={() => setShowAddPopup(true)}>
           +
         </button>
+        {showAddPopup &&
+          <AddHabit onClose={() => setShowAddPopup(false)} />
+        }
       </div>
     </>
 
