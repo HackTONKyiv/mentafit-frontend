@@ -15,7 +15,7 @@ jobs:
       with:
         node-version: 21.x
     - name: npm install and build
-      run: VITE_SUPABASE_URL=${{ sercrets.VITE_SUPABASE_URL }} VITE_SUPABASE_KEY=${{ secrets.VITE_SUPABASE_KEY }} npm run build
+      run: VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }} VITE_SUPABASE_KEY=${{ secrets.VITE_SUPABASE_KEY }} npm run build
 
     - name: Deploy
       uses: s0/git-publish-subdir-action@develop
