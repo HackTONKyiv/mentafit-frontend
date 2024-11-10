@@ -1,7 +1,3 @@
-/*#root {*/
-/*    height: 100vh;*/
-/*}*/
-
 .create-habit-popup{
     z-index: 10000;
     position: absolute;
@@ -14,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     align-self: flex-end;
-    gap: 2vh;
+    gap: 3vh;
 }
 
 .create-habit-button {
@@ -30,10 +26,21 @@
 
 .habit-input {
     width: 80vw;
+    height: 10vw;
+    border-radius: 6vw;
+    border: 2px solid #9BB168;
+    box-shadow: 0 0 0 3px #D3DBBB;
+    outline: none;
+    padding-left: 3vw;
+}
+
+.habit-input::placeholder {
+    color: #9BB168;
+    font-weight: 600;
 }
 
 p {
-    margin: 0 0 -1vh 10vw;
+    margin: 0 0 -2vh 14vw;
     align-self: flex-start;
     font-family: 'Urbanist', sans-serif;
     font-weight: bold;
@@ -41,9 +48,55 @@ p {
 }
 
 .repeat-row {
-    width: 80vw;
+    width: 72vw;
     display: flex;
-    justify-content: space-between;
+    gap: 8vw;
 }
 
+.input-number {
+    width: 7vw;
+    height: 7vw;
+    border-radius: 1.8vw;
+    border: 2px solid #9BB168;
+    box-shadow: 0 0 0 3px #D3DBBB;
+    outline: none;
+    text-align: center;
+    color: #9BB168;
+    font-weight: 600;
+}
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.interval {
+    width: 36vw;
+    border-radius: 1.8vw;
+    border: 2px solid #9BB168;
+    box-shadow: 0 0 0 3px #D3DBBB;
+    outline: none;
+    padding: 1vw;
+    color: #9BB168;
+    font-weight: 600;
+}
+
+.option {
+    background: #ffffff;
+}
+
+.add-habit-button {
+    background: #4F3422;
+    width: 46vw;
+    height: 10vw;
+    border-radius: 2vw;
+    color: #ffffff;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
