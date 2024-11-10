@@ -12,6 +12,7 @@ import {useCalendarStore} from "./stores/calendarStore.ts";
 import {getDateHabits, getDateString} from "./utils/utils.ts";
 import {User, Habit} from "./types/types.ts";
 import {AddHabit} from "./components/AddHabit.tsx";
+import {ModalPopup} from "./components/ModalPopup.tsx";
 
 function Home() {
   const [dbUser, setDbUser] = useState<User | null>(null);
@@ -20,6 +21,7 @@ function Home() {
   const calendarStore = useCalendarStore();
   const user = launchParams.initData?.user;
   const [showAddPopup, setShowAddPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [habitsFetched, setHabitsFetched] = useState(false);
 
   const supabase = useMemo(() => createSupabaseClient(launchParams.initDataRaw),
@@ -95,6 +97,7 @@ function Home() {
         repeatEveryType: habbitData.repeat_every_type,
         name: habbitData.name,
         notificationsStartFrom: new Date(Date.parse(habbitData.notifications_start)),
+        done: false,
       }
     }) || [];
   }
@@ -143,23 +146,25 @@ function Home() {
         <div className={"habits-list"}>
           {getDateHabits(calendarStore.currentDate, calendarStore.habits).map((habit) => {
             return (
-                <div className={"habit-body"} key={habit.id}>
-                  <div className={"habit-name"}>
-                    {habit.name}
-                  </div>
-                  <div className={"habit-buttons"}>
-                    <button className={"delete"}>
-                      <img src={Delete} alt="delete-button-done"/>
-                    </button>
-                    <button className={"edit"}>
-                      <img src={Edit} alt="edit-button-done"/>
-                    </button>
-                    <label className="custom-checkbox">
-                      <input type="checkbox"/>
-                      <span className="checkmark"></span>
-                    </label>
-                  </div>
+              <div className={habit.done ? "habit-body-done" : "habit-body"} key={habit.id}>
+                <div className={"habit-name"}>
+                  {habit.name}
                 </div>
+                <div className={"habit-buttons"}>
+                  <button className={"delete"} onClick={() => setShowDeletePopup(true)}>
+                    <img src={habit.done ? DeleteDone : Delete} alt="delete-button-done"/>
+                  </button>
+                  <button className={"edit"}>
+                    <img src={habit.done ? EditDone : Edit} alt="edit-button-done"/>
+                  </button>
+                  <label className="custom-checkbox">
+                    <input type="checkbox" checked={habit.done} onClick={() => {
+                      habit.done = !habit.done;
+                    }}/>
+                    <span className="checkmark"></span>
+                  </label>
+                </div>
+              </div>
             )
           })}
 
@@ -187,10 +192,19 @@ function Home() {
           +
         </button>
         {showAddPopup &&
-          <AddHabit onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
-            setShowAddPopup(false);
-            addHabit(...args);
-          }} />
+            <AddHabit onClose={() => setShowAddPopup(false)} onSubmit={(...args) => {
+              setShowAddPopup(false);
+              addHabit(...args);
+            }}/>
+        }
+        {showDeletePopup &&
+          <ModalPopup onClose={() => setShowDeletePopup(false)} text={"Are you sure you want to delete this habit?"}
+                      onOk={() => {
+                        setShowDeletePopup(false);
+                      }}
+                      onCancel={() => {
+                        setShowDeletePopup(false);
+                      }}/>
         }
       </div>
     </>

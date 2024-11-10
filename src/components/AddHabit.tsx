@@ -26,7 +26,11 @@ export function AddHabit({ onClose = () => {}, onSubmit = () => {} } : AddHabitP
                         <option value="month">month</option>
                     </select>
                 </div>
-                <button className={"add-habit-button"} onClick={() => onSubmit(habitName, habitInterval, habitIntervalType)}>Create</button>
+                <button className={"add-habit-button"} onClick={() => {
+                    if (habitName.length > 0 && habitInterval > 0) {
+                        onSubmit(habitName, habitInterval, habitIntervalType)
+                    }
+                }}>Create</button>
             </div>
         </>
 

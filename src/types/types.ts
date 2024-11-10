@@ -14,4 +14,5 @@ export interface Habit {
   repeatEveryType: 'hour' | 'day' | 'week' | 'month'
   name: string
   notificationsStartFrom: Date
+  done: boolean
 }
